@@ -12,6 +12,6 @@ public class GenderService {
     private final TxtTokenFilesDAO txtTokenFilesDAO;
 
     public String getAllTokens(){
-        return txtTokenFilesDAO.getMalesTokens();
+        return txtTokenFilesDAO.getMalesTokens() + txtTokenFilesDAO.getFemalesTokens();
     }
 }
