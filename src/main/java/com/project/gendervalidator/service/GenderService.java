@@ -1,6 +1,7 @@
 package com.project.gendervalidator.service;
 
 import com.project.gendervalidator.dao.TokensDAO;
+import com.project.gendervalidator.exception.ResourceException;
 import com.project.gendervalidator.model.Gender;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class GenderService {
             case ALL_PERSONS_NAMES_TO_BE_CHECKED:
                 return checkAllNamesVariant(femaleTokens, maleTokens, personNamesNoSpaces);
         }
-        throw new RuntimeException("Provided variables seems to be wrong");
+        throw new ResourceException("provided data");
     }
 
     private Gender checkFirstNameVariant(String[] femaleTokens, String[] maleTokens, String name) {
@@ -42,9 +43,9 @@ public class GenderService {
 
     }
 
-    private Gender checkAllNamesVariant(String[] femaleTokens, String[] maleTokens, List<String> name) {
-        int maleMatch = (int) name.stream().filter(n -> Arrays.asList(maleTokens).contains(n)).count();
-        int femaleMatch = (int) name.stream().filter(n -> Arrays.asList(femaleTokens).contains(n)).count();
+    private Gender checkAllNamesVariant(String[] femaleTokens, String[] maleTokens, List<String> person) {
+        int maleMatch = (int) person.stream().filter(name -> Arrays.asList(maleTokens).contains(name)).count();
+        int femaleMatch = (int) person.stream().filter(name -> Arrays.asList(femaleTokens).contains(name)).count();
         return maleMatch - femaleMatch > 0 ? Gender.MALE : maleMatch - femaleMatch < 0 ? Gender.FEMALE : Gender.INCONCLUSIVE;
     }
 
