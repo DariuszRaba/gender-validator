@@ -1,5 +1,6 @@
 package com.project.gendervalidator.dao;
 
+import com.project.gendervalidator.exception.ResourceException;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -14,35 +15,30 @@ import java.util.stream.Stream;
 @Component
 public class TxtTokenFilesDAO implements TokensDAO {
 
-    private final Path malePath = Paths.get(Objects.requireNonNull(getClass().getClassLoader()
-            .getResource("male-names.txt")).toURI());
-    private final Path femalePath = Paths.get(Objects.requireNonNull(getClass().getClassLoader()
-            .getResource("female-names.txt")).toURI());
-
-    public TxtTokenFilesDAO() throws URISyntaxException {
-    }
 
     @Override
     public String getMalesTokens() {
         try {
+            Path malePath = Paths.get(Objects.requireNonNull(getClass().getClassLoader()
+                    .getResource("male-names.txt")).toURI());
             return getAllTokensFromFile(malePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "There was a problem with male tokens";
+        } catch (IOException | URISyntaxException e) {
+            throw new ResourceException("Male");
         }
     }
 
     @Override
     public String getFemalesTokens() {
         try {
+            Path femalePath = Paths.get(Objects.requireNonNull(getClass().getClassLoader()
+                    .getResource("female-names.txt")).toURI());
             return getAllTokensFromFile(femalePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "There was a problem with female tokens";
+        } catch (IOException | URISyntaxException e) {
+            throw new ResourceException("Female");
         }
     }
 
-    public String getAllTokensFromFile(Path filePath) throws IOException {
+    private String getAllTokensFromFile(Path filePath) throws IOException {
         Stream<String> lines = Files.lines(filePath);
         String tokenNames = lines.collect(Collectors.joining("\n"));
         lines.close();
