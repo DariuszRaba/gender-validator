@@ -23,7 +23,7 @@ public class TxtTokenFilesDAO implements TokensDAO {
                     .getResource("male-names.txt")).toURI());
             return getAllTokensFromFile(malePath);
         } catch (IOException | URISyntaxException e) {
-            throw new ResourceException("Male Tokens");
+            throw new ResourceException("Male");
         }
     }
 
@@ -34,7 +34,7 @@ public class TxtTokenFilesDAO implements TokensDAO {
                     .getResource("female-names.txt")).toURI());
             return getAllTokensFromFile(femalePath);
         } catch (IOException | URISyntaxException e) {
-            throw new ResourceException("Female Tokens");
+            throw new ResourceException("Female");
         }
     }
 

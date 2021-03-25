@@ -1,7 +1,7 @@
 package com.project.gendervalidator.service;
 
 import com.project.gendervalidator.dao.TokensDAO;
-import com.project.gendervalidator.exception.ResourceException;
+import com.project.gendervalidator.exception.ProvidedDataException;
 import com.project.gendervalidator.model.Gender;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class GenderService {
     private final String ALL_PERSONS_NAMES_TO_BE_CHECKED = "ALL";
 
     public String getAllTokens() {
-        return txtTokenFilesDAO.getMalesTokens() + txtTokenFilesDAO.getFemalesTokens();
+        return txtTokenFilesDAO.getMalesTokens() + " " + txtTokenFilesDAO.getFemalesTokens();
     }
 
     public Gender getPersonGender(String part, String person) {
@@ -34,7 +34,7 @@ public class GenderService {
             case ALL_PERSONS_NAMES_TO_BE_CHECKED:
                 return checkAllNamesVariant(femaleTokens, maleTokens, personNamesNoSpaces);
         }
-        throw new ResourceException("provided data");
+        throw new ProvidedDataException();
     }
 
     private Gender checkFirstNameVariant(String[] femaleTokens, String[] maleTokens, String name) {
