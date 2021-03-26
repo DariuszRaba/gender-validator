@@ -19,8 +19,8 @@ public class GenderService {
     private final String FIRST_PART_OF_PERSON_TO_BE_CHECKED = "FIRST";
     private final String ALL_PERSONS_NAMES_TO_BE_CHECKED = "ALL";
 
-    public String getAllTokens() {
-        return txtTokenFilesDAO.getMalesTokens() + " " + txtTokenFilesDAO.getFemalesTokens();
+    public List<String[]> getAllTokens() {
+        return Arrays.asList(txtTokenFilesDAO.getMalesTokens().split("\n"), txtTokenFilesDAO.getFemalesTokens().split("\n"));
     }
 
     public Gender getPersonGender(String part, String person) {

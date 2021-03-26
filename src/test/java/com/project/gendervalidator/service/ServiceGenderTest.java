@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 @ExtendWith(SpringExtension.class)
@@ -140,9 +141,12 @@ public class ServiceGenderTest {
         when(txtTokenFilesDAO.getFemalesTokens()).thenReturn(prepareFemaleTokensData());
         when(txtTokenFilesDAO.getMalesTokens()).thenReturn(prepareMaleTokensData());
         //when
-        String[] allTokens = genderService.getAllTokens().split("\n");
+        int sumOfTokens = genderService.getAllTokens().stream()
+                .mapToInt(gender -> gender.length)
+                .sum();
+
         //then
-        assertEquals(numberOfTokens,allTokens.length);
+        assertEquals(numberOfTokens,sumOfTokens);
     }
 
 

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 
 @RestController
 @AllArgsConstructor
@@ -17,12 +19,12 @@ public class GenderController {
     private final GenderService genderService;
 
     @GetMapping("/tokens")
-    public String getAllTokens(){
+    public List<String[]> getAllTokens() {
         return genderService.getAllTokens();
     }
 
     @GetMapping("/check/{part}/{person}")
-    public Gender getGenderOfPerson(@PathVariable("part") String partToCheck, @PathVariable("person") String person){
-      return genderService.getPersonGender(partToCheck, person);
+    public Gender getGenderOfPerson(@PathVariable("part") String partToCheck, @PathVariable("person") String person) {
+        return genderService.getPersonGender(partToCheck, person);
     }
 }
