@@ -44,9 +44,9 @@ public class GenderService {
     }
 
     private Gender checkAllNamesVariant(String[] femaleTokens, String[] maleTokens, List<String> person) {
-        int maleMatch = (int) person.stream().filter(name -> Arrays.asList(maleTokens).contains(name)).count();
-        int femaleMatch = (int) person.stream().filter(name -> Arrays.asList(femaleTokens).contains(name)).count();
-        return maleMatch - femaleMatch > 0 ? Gender.MALE : maleMatch - femaleMatch < 0 ? Gender.FEMALE : Gender.INCONCLUSIVE;
+        long maleMatch =  person.stream().filter(name -> Arrays.asList(maleTokens).contains(name)).count();
+        long femaleMatch =  person.stream().filter(name -> Arrays.asList(femaleTokens).contains(name)).count();
+        return maleMatch > femaleMatch ? Gender.MALE : maleMatch < femaleMatch ? Gender.FEMALE : Gender.INCONCLUSIVE;
     }
 
     private List<String> getPersonNamesNoSpaces(String person) {
