@@ -16,7 +16,7 @@ public class TxtTokenFilesDAO implements TokensDAO {
             String NAME_OF_MALE_TOKENS_FILE = "male-names.txt";
             return getAllTokensFromFile(NAME_OF_MALE_TOKENS_FILE);
         } catch (IOException ex) {
-            throw new ResourceException("Male");
+            throw new ResourceException("Male", ex);
         }
     }
 
@@ -26,7 +26,7 @@ public class TxtTokenFilesDAO implements TokensDAO {
             String NAME_OF_FEMALE_TOKENS_FILE = "female-names.txt";
             return getAllTokensFromFile(NAME_OF_FEMALE_TOKENS_FILE);
         } catch (IOException ex) {
-            throw new ResourceException("Female");
+            throw new ResourceException("Female", ex);
         }
     }
 
